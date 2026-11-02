@@ -18,33 +18,27 @@
           <span class="brand-name">LIVING<span>ROOM</span></span>
         </a>
         <div class="topbar-meta">
-          <span class="live-indicator"><i></i> YOUR HOME SCREEN</span>
-          <span class="topbar-divider" aria-hidden="true"></span>
-          <span class="remote-hint">BUILT FOR YOUR REMOTE</span>
+          <span class="live-indicator"><i></i> HOME</span>
         </div>
       </header>
 
       <section class="hero-grid" aria-labelledby="welcome-title">
         <div class="welcome-card">
           <div class="welcome-orbit" aria-hidden="true"></div>
-          <p class="eyebrow"><span class="eyebrow-line"></span> YOUR LIVING ROOM</p>
+          <p class="eyebrow"><span class="eyebrow-line"></span> WELCOME HOME</p>
           <h1 id="welcome-title"><span id="greeting">Good evening</span><span class="title-period">.</span></h1>
-          <p class="welcome-copy">A calmer way to find your next favorite.</p>
+          <p class="welcome-copy">Choose a show, movie, or video.</p>
           <div class="time-block">
             <time id="clock" class="clock" aria-label="Current time">--:--</time>
             <span class="time-divider" aria-hidden="true"></span>
             <time id="date" class="date">Loading date…</time>
-          </div>
-          <div class="welcome-bottom">
-            <span class="welcome-note"><span class="note-dot"></span> Everything you need, one click away</span>
-            <span class="welcome-index">01 <i></i> 03</span>
           </div>
         </div>
 
         <aside class="weather-card" aria-labelledby="weather-title">
           <div class="weather-topline">
             <div>
-              <p class="eyebrow"><span class="eyebrow-line"></span> OUTSIDE RIGHT NOW</p>
+              <p class="eyebrow"><span class="eyebrow-line"></span> LOCAL WEATHER</p>
               <h2 id="weather-title">Weather</h2>
             </div>
             <div class="weather-controls">
@@ -61,12 +55,12 @@
             <div id="weather-symbol" class="weather-symbol" aria-hidden="true">✳</div>
             <div class="weather-readout">
               <span id="weather-temperature" class="weather-temperature">--°</span>
-              <span id="weather-condition" class="weather-condition">Add your city for local weather</span>
+              <span id="weather-condition" class="weather-condition">Set your city to see local weather</span>
             </div>
           </div>
           <div class="weather-footer">
             <span id="weather-city" class="weather-city">LOCATION NOT SET</span>
-            <button id="set-city" class="text-button" type="button">Set location <span aria-hidden="true">↗</span></button>
+            <button id="set-city" class="text-button" type="button">Set city <span aria-hidden="true">↗</span></button>
           </div>
           <p id="weather-status" class="weather-status" aria-live="polite"></p>
           <div class="weather-glow" aria-hidden="true"></div>
@@ -76,93 +70,73 @@
       <section class="shortcuts-section" aria-labelledby="shortcuts-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow"><span class="eyebrow-line"></span> PICK UP WHERE YOU LEFT OFF</p>
-            <h2 id="shortcuts-title">Quick access</h2>
+            <p class="eyebrow"><span class="eyebrow-line"></span> YOUR ENTERTAINMENT</p>
+            <h2 id="shortcuts-title">Choose an app</h2>
           </div>
-          <span class="section-hint"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> Navigate <b>OK</b> Select</span>
+          <div class="section-tools">
+            <span class="section-hint"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> Move <b>OK</b> Open</span>
+            <button id="add-app" class="manage-apps-button" type="button"><span aria-hidden="true">＋</span> Add app</button>
+          </div>
         </div>
 
-        <div class="shortcut-grid">
-          <button id="launch-tizentube" class="shortcut-card shortcut-primary" type="button">
-            <span class="shortcut-icon youtube-icon" aria-hidden="true"><span>▶</span></span>
-            <span class="shortcut-copy">
-              <span class="shortcut-kicker">YOUR VIDEO DESTINATION</span>
-              <strong>TizenTube</strong>
-              <span class="shortcut-description">Open your YouTube experience</span>
-            </span>
-            <span class="shortcut-arrow" aria-hidden="true">↗</span>
-            <span class="shortcut-number">01</span>
-          </button>
-
-          <button id="jump-watchlist" class="shortcut-card shortcut-secondary" type="button">
-            <span class="shortcut-icon watch-icon" aria-hidden="true"><span>＋</span></span>
-            <span class="shortcut-copy">
-              <span class="shortcut-kicker">SAVE IT FOR LATER</span>
-              <strong>Your watchlist</strong>
-              <span id="shortcut-watchlist-count" class="shortcut-description">Nothing saved yet</span>
-            </span>
-            <span class="shortcut-arrow" aria-hidden="true">↓</span>
-            <span class="shortcut-number">02</span>
-          </button>
-
-          <button id="shortcut-weather" class="shortcut-card shortcut-secondary" type="button">
-            <span class="shortcut-icon weather-icon" aria-hidden="true"><span>☼</span></span>
-            <span class="shortcut-copy">
-              <span class="shortcut-kicker">A LITTLE LOCAL COLOR</span>
-              <strong>Set your city</strong>
-              <span class="shortcut-description">See the weather at a glance</span>
-            </span>
-            <span class="shortcut-arrow" aria-hidden="true">↗</span>
-            <span class="shortcut-number">03</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="bottom-grid">
-        <article id="watchlist-panel" class="watchlist-card" aria-labelledby="watchlist-title">
-          <div class="watchlist-heading">
-            <div>
-              <p class="eyebrow"><span class="eyebrow-line"></span> NO MORE “WHAT SHOULD WE WATCH?”</p>
-              <h2 id="watchlist-title">Up next <span id="watchlist-count" class="count-badge">0</span></h2>
-            </div>
-            <button id="add-watchlist" class="add-button" type="button"><span aria-hidden="true">＋</span> Add a title</button>
-          </div>
-          <ul id="watchlist-list" class="watchlist-list" aria-label="Saved watchlist titles"></ul>
-          <div id="watchlist-empty" class="watchlist-empty">
-            <span class="empty-star" aria-hidden="true">✳</span>
-            <span>Your next great pick goes here.</span>
-            <button id="empty-add-watchlist" class="empty-add" type="button">Add your first title <span aria-hidden="true">↗</span></button>
-          </div>
-        </article>
-
-        <aside class="tip-card">
-          <div class="tip-art" aria-hidden="true"><span></span><span></span><span></span></div>
-          <p class="eyebrow"><span class="eyebrow-line"></span> A SMALL REMINDER</p>
-          <h2>Less scrolling.<br><span>More settling in.</span></h2>
-          <p class="tip-copy">Save the things you want to watch, then get back to the good part.</p>
-          <div class="tip-footer"><span>MADE FOR COUCH MODE</span><span class="tip-spark" aria-hidden="true">✦</span></div>
-        </aside>
+        <div id="shortcut-grid" class="shortcut-grid" aria-label="App shortcuts"></div>
+        <p id="apps-empty" class="apps-empty" hidden>No apps yet. Add one to get started.</p>
       </section>
 
       <footer class="footer-bar">
-        <span><span class="footer-mark">B</span> A little more living room, a little less menu.</span>
-        <span class="footer-right">TIZENBREW MODULE <i></i> 0.1.1</span>
+        <span><span class="footer-mark">B</span> Your favorite apps, all in one place.</span>
+        <span class="footer-right">READY TO WATCH <i></i></span>
       </footer>
     </main>
 
     <div id="entry-modal" class="modal-backdrop" hidden>
       <section class="entry-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button id="close-modal" class="modal-close" type="button" aria-label="Close dialog">×</button>
-        <p class="eyebrow"><span class="eyebrow-line"></span> MAKE IT YOURS</p>
-        <h2 id="modal-title">Add to your watchlist</h2>
-        <p id="modal-description" class="modal-description">Keep a title handy for your next movie night.</p>
+        <p class="eyebrow"><span class="eyebrow-line"></span> LOCAL WEATHER</p>
+        <h2 id="modal-title">Set your city</h2>
+        <p id="modal-description" class="modal-description">Enter your city or town to see the local weather.</p>
         <form id="entry-form">
-          <label id="entry-label" for="entry-input">Movie or show title</label>
-          <input id="entry-input" name="entry" type="text" maxlength="80" autocomplete="off" placeholder="e.g. The next family movie" required>
+          <label id="entry-label" for="entry-input">City or town</label>
+          <input id="entry-input" name="entry" type="text" maxlength="80" autocomplete="off" placeholder="e.g. Seattle" required>
           <p id="modal-error" class="modal-error" aria-live="polite"></p>
           <div class="modal-actions">
             <button id="cancel-modal" class="cancel-button" type="button">Cancel</button>
-            <button class="save-button" type="submit">Save <span aria-hidden="true">↗</span></button>
+            <button class="save-button" type="submit">Save city <span aria-hidden="true">↗</span></button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div id="app-manager-modal" class="modal-backdrop" hidden>
+      <section class="entry-modal app-manager-dialog" role="dialog" aria-modal="true" aria-labelledby="app-manager-title">
+        <button id="close-app-manager" class="modal-close" type="button" aria-label="Close app manager">×</button>
+        <p class="eyebrow"><span class="eyebrow-line"></span> YOUR APPS</p>
+        <h2 id="app-manager-title">Manage your apps</h2>
+        <p class="modal-description">Add apps using their Tizen app IDs. You can edit, reorder, or remove them here.</p>
+
+        <section class="app-manager-section" aria-labelledby="app-manager-list-title">
+          <h3 id="app-manager-list-title">Apps on your screen</h3>
+          <p id="app-manager-empty" class="app-manager-empty" hidden>No apps yet. Add one below.</p>
+          <ul id="app-manager-list" class="app-manager-list"></ul>
+        </section>
+
+        <h3 id="app-form-title" class="app-form-title">Add an app</h3>
+        <form id="app-form" class="app-form">
+          <label for="new-app-name">App name</label>
+          <input id="new-app-name" name="name" type="text" maxlength="40" autocomplete="off" required>
+          <label for="new-app-id">Tizen app ID</label>
+          <input id="new-app-id" name="appId" type="text" maxlength="128" autocomplete="off" spellcheck="false" placeholder="com.example.MyApp" required>
+          <p class="field-help">Enter the app ID exactly as shown on your TV.</p>
+          <label for="new-app-category">Category (optional)</label>
+          <input id="new-app-category" name="category" type="text" maxlength="24" autocomplete="off" placeholder="e.g. MOVIES AND SHOWS">
+          <p class="field-help">Defaults to APP. The category appears above the app name.</p>
+          <label for="new-app-description">Short description (optional)</label>
+          <input id="new-app-description" name="description" type="text" maxlength="64" autocomplete="off" placeholder="e.g. Watch family movies">
+          <p id="app-manager-error" class="modal-error" aria-live="polite"></p>
+          <div class="modal-actions">
+            <button id="cancel-app-manager" class="cancel-button" type="button">Done</button>
+            <button id="cancel-app-edit" class="cancel-button" type="button" hidden>Cancel edit</button>
+            <button id="add-app-submit" class="save-button" type="submit">Add app</button>
           </div>
         </form>
       </section>

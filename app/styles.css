@@ -76,19 +76,23 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .dashboard-shell {
   position: relative;
   z-index: 1;
-  width: min(100% - 8vw, 1680px);
-  margin: 0 auto;
-  padding: 34px 0 22px;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  flex-direction: column;
+  margin: 0;
+  padding: clamp(22px, 4vh, 48px) clamp(22px, 4vw, 72px) 24px;
 }
 
 .topbar, .brand, .topbar-meta, .live-indicator, .time-block, .welcome-bottom,
-.section-heading, .watchlist-heading, .weather-topline, .weather-footer,
-.footer-bar, .tip-footer, .modal-actions, .weather-display, .shortcut-card {
+.section-heading, .weather-topline, .weather-footer,
+.footer-bar, .modal-actions, .weather-display, .shortcut-card {
   display: flex;
   align-items: center;
 }
 
-.topbar { justify-content: space-between; margin-bottom: 24px; }
+.topbar { justify-content: space-between; margin-bottom: clamp(20px, 3vh, 34px); }
 
 .brand { gap: 12px; color: var(--ink); text-decoration: none; }
 
@@ -118,10 +122,10 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .topbar-divider { width: 1px; height: 15px; background: var(--line); }
 
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(320px, .8fr); gap: 18px; }
-.welcome-card, .weather-card, .watchlist-card, .tip-card { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 25px; }
+.welcome-card, .weather-card { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 25px; }
 
 .welcome-card {
-  min-height: 258px;
+  min-height: clamp(260px, 32vh, 350px);
   padding: 29px 34px 22px;
   background:
     linear-gradient(112deg, rgba(28, 42, 64, .96), rgba(19, 31, 49, .92) 58%, rgba(18, 34, 48, .88)),
@@ -151,30 +155,28 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   box-shadow: 0 0 21px 7px rgba(142, 231, 203, .28);
 }
 
-.eyebrow { margin: 0; color: #8b9bb5; font-size: 9px; font-weight: 700; letter-spacing: .17em; }
+.eyebrow { margin: 0; color: #8b9bb5; font-size: 10px; font-weight: 700; letter-spacing: .14em; }
 .eyebrow-line { display: inline-block; width: 17px; height: 1px; margin: 0 8px 3px 0; background: var(--mint); }
 
 .welcome-card h1 {
   position: relative;
   margin: 13px 0 0;
-  font: 600 clamp(34px, 4.05vw, 62px)/1.03 'Manrope', sans-serif;
+  font: 600 clamp(36px, 4.05vw, 68px)/1.03 'Manrope', sans-serif;
   letter-spacing: -.055em;
 }
 
 .title-period { color: var(--mint); }
-.welcome-copy { position: relative; margin: 11px 0 0; color: #9caac0; font-size: 14px; }
-.time-block { position: relative; gap: 16px; margin-top: 21px; }
-.clock { font: 500 24px/1 'Manrope', sans-serif; letter-spacing: .015em; font-variant-numeric: tabular-nums; }
+.welcome-copy { position: relative; margin: 11px 0 0; color: #b3bfd1; font-size: 16px; }
+.time-block { position: relative; gap: 16px; margin-top: 24px; }
+.clock { font: 500 28px/1 'Manrope', sans-serif; letter-spacing: .015em; font-variant-numeric: tabular-nums; }
 .time-divider { width: 1px; height: 22px; background: rgba(203, 216, 236, .19); }
-.date { color: #a6b2c6; font-size: 13px; }
-.welcome-bottom { position: absolute; right: 29px; bottom: 20px; left: 34px; justify-content: space-between; color: #75849c; font-size: 10px; }
+.date { color: #b3bfd1; font-size: 14px; }
+.welcome-bottom { position: absolute; right: 29px; bottom: 20px; left: 34px; justify-content: flex-start; color: #aab7cb; font-size: 12px; }
 .welcome-note { display: flex; align-items: center; gap: 8px; }
 .note-dot { width: 5px; height: 5px; }
-.welcome-index { display: flex; align-items: center; gap: 7px; font: 700 9px 'Manrope', sans-serif; letter-spacing: .12em; }
-.welcome-index i { width: 24px; height: 1px; background: rgba(174, 195, 228, .25); }
 
 .weather-card {
-  min-height: 258px;
+  min-height: clamp(260px, 32vh, 350px);
   padding: 24px 25px 18px;
   background: linear-gradient(145deg, rgba(25, 43, 58, .94), rgba(19, 30, 46, .97));
 }
@@ -192,30 +194,34 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .weather-display { position: relative; z-index: 1; min-height: 109px; gap: 15px; padding: 11px 0 2px; }
 .weather-symbol { width: 56px; color: var(--gold); font-size: 47px; line-height: 1; text-align: center; text-shadow: 0 0 24px rgba(241, 199, 126, .25); }
 .weather-temperature { display: block; font: 600 42px/1 'Manrope', sans-serif; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
-.weather-condition { display: block; max-width: 220px; margin-top: 7px; color: #aab6c8; font-size: 12px; }
+.weather-condition { display: block; max-width: 240px; margin-top: 7px; color: #b3bfd1; font-size: 14px; }
 .weather-display.is-empty .weather-temperature { display: none; }
 .weather-display.is-empty .weather-symbol { color: #7792b2; font-size: 34px; }
 .weather-display.is-loading .weather-symbol { animation: slow-turn 2.6s linear infinite; }
 .weather-footer { position: relative; z-index: 1; justify-content: space-between; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
-.weather-city { overflow: hidden; color: #71839c; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-overflow: ellipsis; white-space: nowrap; }
-.text-button, .empty-add { padding: 3px 0; border: 0; background: none; color: var(--mint); font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-.text-button span, .empty-add span { margin-left: 4px; }
-.weather-status { position: relative; z-index: 1; min-height: 14px; margin: 6px 0 0; color: #8798af; font-size: 10px; }
+.weather-city { overflow: hidden; color: #9cabc1; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-overflow: ellipsis; white-space: nowrap; }
+.text-button { padding: 5px 0; border: 0; background: none; color: var(--mint); font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.text-button span { margin-left: 4px; }
+.weather-status { position: relative; z-index: 1; min-height: 16px; margin: 7px 0 0; color: #aab7cb; font-size: 12px; }
 .weather-glow { position: absolute; right: -65px; bottom: 30px; width: 195px; height: 80px; border-radius: 50%; background: rgba(88, 197, 167, .08); filter: blur(36px); }
 
-.shortcuts-section { margin-top: 27px; }
-.section-heading { justify-content: space-between; margin-bottom: 13px; }
-.section-heading h2, .watchlist-heading h2 { margin: 6px 0 0; font: 600 22px/1.1 'Manrope', sans-serif; letter-spacing: -.035em; }
-.section-hint { display: flex; align-items: center; gap: 5px; color: #718099; font-size: 10px; }
-.section-hint kbd, .section-hint b { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-left: 2px; border: 1px solid rgba(174, 195, 228, .16); border-radius: 5px; background: rgba(255, 255, 255, .025); color: #a9b6ca; font: 600 9px 'DM Sans', sans-serif; }
-.section-hint b { min-width: 29px; padding: 0 5px; margin-left: 8px; color: var(--mint); }
+.shortcuts-section { display: flex; flex: 1; flex-direction: column; justify-content: center; margin-top: clamp(24px, 3vh, 40px); }
+.section-heading { justify-content: space-between; gap: 16px; margin-bottom: 13px; }
+.section-heading h2 { margin: 6px 0 0; font: 600 28px/1.1 'Manrope', sans-serif; letter-spacing: -.035em; }
+.section-tools { display: flex; align-items: center; gap: 14px; }
+.section-hint { display: flex; align-items: center; gap: 6px; color: #a5b2c6; font-size: 12px; }
+.section-hint kbd, .section-hint b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; margin-left: 2px; border: 1px solid rgba(174, 195, 228, .16); border-radius: 5px; background: rgba(255, 255, 255, .025); color: #c1cbd9; font: 600 11px 'DM Sans', sans-serif; }
+.section-hint b { min-width: 34px; padding: 0 5px; margin-left: 8px; color: var(--mint); }
+.manage-apps-button { display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 14px; border: 1px solid rgba(142, 231, 203, .25); border-radius: 10px; background: rgba(142, 231, 203, .08); color: var(--mint); font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.manage-apps-button span { font-size: 18px; }
 
-.shortcut-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+.shortcut-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.shortcut-grid[hidden] { display: none; }
 .shortcut-card {
   position: relative;
-  min-height: 106px;
-  gap: 14px;
-  padding: 16px 17px;
+  min-height: clamp(130px, 18vh, 190px);
+  gap: 18px;
+  padding: 22px 24px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 17px;
@@ -227,62 +233,54 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 
 .shortcut-card:hover, .shortcut-card:focus-visible { transform: translateY(-2px); border-color: rgba(142, 231, 203, .5); background: rgba(25, 41, 57, .98); }
 .shortcut-primary { border-color: rgba(142, 231, 203, .17); background: linear-gradient(120deg, rgba(35, 69, 70, .68), rgba(18, 31, 45, .92)); }
-.shortcut-icon { display: grid; flex: 0 0 45px; width: 45px; height: 45px; place-items: center; border: 1px solid rgba(255, 255, 255, .1); border-radius: 14px; background: rgba(255, 255, 255, .04); color: #dce6f3; font-size: 24px; }
+.shortcut-icon { display: grid; flex: 0 0 54px; width: 54px; height: 54px; place-items: center; border: 1px solid rgba(255, 255, 255, .1); border-radius: 16px; background: rgba(255, 255, 255, .04); color: #dce6f3; font: 700 25px 'Manrope', sans-serif; }
 .youtube-icon { border-color: rgba(255, 111, 105, .2); background: rgba(245, 75, 77, .12); color: #ff817d; }
 .youtube-icon span { display: grid; width: 24px; height: 18px; place-items: center; padding-left: 2px; border-radius: 6px; background: #f45456; color: white; font-size: 11px; }
-.watch-icon { color: var(--mint); }
-.weather-icon { color: var(--gold); }
+.jellyfin-icon { border-color: rgba(170, 139, 255, .24); background: rgba(132, 91, 230, .15); color: #c9b6ff; }
+.nuvio-icon { border-color: rgba(108, 182, 255, .24); background: rgba(52, 129, 219, .15); color: #a8d3ff; }
 .shortcut-copy { display: grid; min-width: 0; gap: 4px; }
-.shortcut-kicker { color: #73839b; font-size: 8px; font-weight: 700; letter-spacing: .11em; }
-.shortcut-copy strong { overflow: hidden; font: 600 15px/1.1 'Manrope', sans-serif; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
-.shortcut-description { overflow: hidden; color: #91a0b6; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.shortcut-arrow { position: absolute; top: 17px; right: 17px; color: #7f90a7; font-size: 16px; }
-.shortcut-number { position: absolute; right: 15px; bottom: 13px; color: rgba(166, 187, 213, .26); font: 700 9px 'Manrope', sans-serif; }
+.shortcut-kicker { color: #9aa9bf; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
+.shortcut-copy strong { overflow: hidden; font: 600 21px/1.1 'Manrope', sans-serif; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+.shortcut-description { overflow: hidden; color: #b0bdcf; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.shortcut-number { position: absolute; right: 17px; bottom: 14px; color: rgba(166, 187, 213, .36); font: 700 11px 'Manrope', sans-serif; }
+.apps-empty { padding: 22px 0; color: #b0bdcf; font-size: 14px; }
 
-.bottom-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(290px, .85fr); gap: 14px; margin-top: 15px; }
-.watchlist-card { min-height: 220px; padding: 20px 23px 16px; background: rgba(18, 27, 43, .82); }
-.watchlist-heading { justify-content: space-between; gap: 14px; }
-.watchlist-heading h2 { display: flex; align-items: center; gap: 9px; }
-.count-badge { display: grid; min-width: 21px; height: 21px; place-items: center; padding: 0 6px; border: 1px solid rgba(142, 231, 203, .21); border-radius: 9px; background: rgba(142, 231, 203, .08); color: var(--mint); font: 700 10px 'DM Sans', sans-serif; }
-.add-button { display: flex; align-items: center; gap: 6px; padding: 8px 11px; border: 1px solid rgba(142, 231, 203, .17); border-radius: 9px; background: rgba(142, 231, 203, .07); color: var(--mint); font-size: 10px; font-weight: 700; cursor: pointer; }
-.add-button span { font-size: 16px; line-height: 10px; }
-.watchlist-list { display: grid; gap: 5px; padding: 0; margin: 14px 0 0; list-style: none; }
-.watchlist-item { display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 4px 3px; border-top: 1px solid rgba(174, 195, 228, .06); }
-.watchlist-done, .watchlist-remove { display: grid; flex: 0 0 24px; width: 24px; height: 24px; place-items: center; border: 1px solid rgba(174, 195, 228, .18); border-radius: 8px; background: rgba(255, 255, 255, .025); color: var(--mint); cursor: pointer; }
-.watchlist-title { flex: 1; overflow: hidden; color: #d5deec; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
-.watchlist-item.is-done .watchlist-title { color: #718096; text-decoration: line-through; }
-.watchlist-item.is-done .watchlist-done { border-color: rgba(142, 231, 203, .25); background: rgba(142, 231, 203, .12); }
-.watchlist-remove { border-color: transparent; color: #718096; font-size: 17px; }
-.watchlist-empty { display: flex; align-items: center; gap: 10px; padding: 20px 2px 3px; color: #8492a9; font-size: 11px; }
-.empty-star { color: var(--gold); font-size: 18px; }
-.empty-add { margin-left: auto; }
-
-.tip-card { min-height: 220px; padding: 21px 24px 16px; background: linear-gradient(145deg, rgba(34, 43, 62, .93), rgba(20, 30, 48, .96)); }
-.tip-card h2 { position: relative; z-index: 1; margin: 14px 0 0; font: 600 clamp(19px, 2vw, 27px)/1.19 'Manrope', sans-serif; letter-spacing: -.04em; }
-.tip-card h2 span { color: var(--mint); }
-.tip-copy { position: relative; z-index: 1; max-width: 310px; margin: 9px 0 0; color: #92a0b6; font-size: 11px; line-height: 1.5; }
-.tip-art { position: absolute; top: -17px; right: 0; width: 140px; height: 140px; opacity: .58; }
-.tip-art span { position: absolute; top: 18px; right: 10px; width: 64px; height: 64px; border: 1px solid rgba(142, 231, 203, .21); border-radius: 50%; }
-.tip-art span:nth-child(2) { top: 34px; right: 25px; width: 35px; height: 35px; background: rgba(142, 231, 203, .09); }
-.tip-art span:nth-child(3) { top: 60px; right: 72px; width: 7px; height: 7px; border: 0; background: var(--mint); box-shadow: 0 0 16px 5px rgba(142, 231, 203, .32); }
-.tip-footer { position: absolute; right: 22px; bottom: 16px; left: 24px; justify-content: space-between; color: #718099; font-size: 8px; font-weight: 700; letter-spacing: .13em; }
-.tip-spark { color: var(--gold); font-size: 16px; }
-
-.footer-bar { justify-content: space-between; margin-top: 18px; color: #69778e; font-size: 9px; }
+.footer-bar { justify-content: space-between; margin-top: clamp(18px, 2vh, 28px); color: #9aa8bc; font-size: 12px; }
 .footer-bar > span:first-child { display: flex; align-items: center; gap: 7px; }
 .footer-mark { display: grid; width: 16px; height: 16px; place-items: center; border: 1px solid rgba(142, 231, 203, .3); border-radius: 5px; color: var(--mint); font: 700 9px 'Manrope', sans-serif; }
-.footer-right { display: flex; align-items: center; gap: 7px; font-weight: 700; letter-spacing: .11em; }
+.footer-right { display: flex; align-items: center; gap: 7px; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
 .footer-right i { width: 4px; height: 4px; }
 
 .modal-backdrop { position: fixed; z-index: 5; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(3, 7, 14, .74); backdrop-filter: blur(12px); }
 .modal-backdrop[hidden] { display: none; }
 .entry-modal { position: relative; width: min(100%, 500px); padding: 32px; border: 1px solid rgba(174, 195, 228, .19); border-radius: 22px; background: #151f31; box-shadow: 0 30px 90px rgba(0, 0, 0, .45); }
+.app-manager-dialog { width: min(100%, 620px); max-height: calc(100vh - 32px); overflow-y: auto; }
 .entry-modal h2 { margin: 13px 0 0; font: 600 27px/1.15 'Manrope', sans-serif; letter-spacing: -.04em; }
 .modal-description { margin: 8px 0 23px; color: #96a4ba; font-size: 12px; line-height: 1.5; }
 .entry-modal label { display: block; margin-bottom: 8px; color: #bac6d7; font-size: 11px; font-weight: 600; }
 .entry-modal input { width: 100%; min-height: 47px; padding: 0 14px; border: 1px solid rgba(174, 195, 228, .19); border-radius: 11px; background: rgba(6, 12, 22, .65); color: var(--ink); font-size: 14px; }
 .entry-modal input::placeholder { color: #65748b; }
-.modal-error { min-height: 16px; margin: 7px 0 0; color: #ff9991; font-size: 10px; }
+.app-manager-section { margin: 16px 0 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+.app-manager-section h3 { margin: 0 0 10px; font: 600 16px/1.2 'Manrope', sans-serif; }
+.app-manager-list { display: grid; max-height: 160px; gap: 7px; overflow-y: auto; padding: 0; margin: 0; list-style: none; }
+.app-manager-item { display: grid; grid-template-columns: minmax(0, 1fr) 73px auto; align-items: center; gap: 8px; padding: 9px 10px; border: 1px solid rgba(174, 195, 228, .1); border-radius: 10px; background: rgba(255, 255, 255, .025); }
+.app-manager-copy { display: grid; min-width: 0; gap: 4px; }
+.app-manager-copy strong { overflow: hidden; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.app-manager-copy code { overflow-wrap: anywhere; color: #a4b2c7; font-size: 10px; }
+.app-manager-order { display: flex; flex: 0 0 auto; gap: 5px; }
+.app-order-button { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid rgba(142, 231, 203, .2); border-radius: 8px; background: rgba(142, 231, 203, .06); color: var(--mint); font-size: 18px; cursor: pointer; }
+.app-order-button:disabled { border-color: rgba(174, 195, 228, .08); background: rgba(255, 255, 255, .015); color: #58667a; cursor: default; }
+.app-manager-actions { display: flex; flex: 0 0 auto; gap: 5px; }
+.edit-app-button, .remove-app-button { flex: 0 0 auto; min-height: 34px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
+.edit-app-button { background: rgba(142, 231, 203, .06); color: var(--mint); }
+.remove-app-button { border-color: rgba(255, 151, 145, .22); background: rgba(255, 151, 145, .06); color: #ffaaa2; }
+.app-manager-empty, .field-help { color: #aab7cb; font-size: 12px; line-height: 1.5; }
+.app-manager-empty { margin: 0; }
+.field-help { margin: 0; }
+.app-form-title { margin: 0 0 10px; font: 600 16px/1.2 'Manrope', sans-serif; }
+.app-form { display: grid; gap: 7px; }
+.app-form label { margin-top: 5px; }
+.modal-error { min-height: 16px; margin: 7px 0 0; color: #ff9991; font-size: 12px; }
 .modal-actions { justify-content: flex-end; gap: 9px; margin-top: 14px; }
 .cancel-button, .save-button { min-height: 39px; padding: 0 14px; border: 1px solid var(--line); border-radius: 9px; background: transparent; color: #a9b6ca; font-size: 11px; font-weight: 700; cursor: pointer; }
 .save-button { border-color: transparent; background: var(--mint); color: #0b1b1b; }
@@ -295,31 +293,28 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 @keyframes slow-turn { to { transform: rotate(360deg); } }
 
 @media (min-width: 1600px) {
-  .dashboard-shell { padding-top: 40px; }
-  .topbar { margin-bottom: 28px; }
-  .welcome-card, .weather-card { min-height: 286px; }
-  .welcome-card { padding: 34px 40px 24px; }
-  .weather-card { padding: 29px 31px 22px; }
-  .welcome-copy { font-size: 15px; }
-  .time-block { margin-top: 25px; }
-  .shortcuts-section { margin-top: 33px; }
-  .shortcut-card { min-height: 118px; padding: 18px 21px; }
-  .bottom-grid { margin-top: 18px; }
-  .watchlist-card, .tip-card { min-height: 238px; }
+  .hero-grid { gap: 24px; }
+  .shortcut-grid { gap: 20px; }
+  .shortcut-card { min-height: clamp(160px, 20vh, 220px); padding: 25px 28px; }
+  .shortcut-icon { flex-basis: 60px; width: 60px; height: 60px; }
+  .shortcut-copy strong { font-size: 23px; }
+  .shortcut-description { font-size: 14px; }
 }
 
 @media (max-width: 900px) {
-  .dashboard-shell { width: min(100% - 36px, 760px); padding-top: 22px; }
+  .dashboard-shell { padding: 22px 18px; }
   .hero-grid { grid-template-columns: 1fr; }
   .welcome-card { min-height: 245px; }
   .weather-card { min-height: 210px; }
-  .bottom-grid { grid-template-columns: 1fr; }
-  .tip-card { min-height: 205px; }
+  .shortcuts-section { flex: initial; }
   .shortcut-grid { gap: 9px; }
-  .shortcut-card { padding: 13px 12px; gap: 9px; }
-  .shortcut-icon { flex-basis: 39px; width: 39px; height: 39px; }
-  .shortcut-kicker { font-size: 7px; }
-  .shortcut-copy strong { font-size: 13px; }
+  .shortcut-card { min-height: 110px; padding: 14px 12px; gap: 10px; }
+  .shortcut-icon { flex-basis: 42px; width: 42px; height: 42px; border-radius: 12px; font-size: 20px; }
+  .shortcut-kicker { font-size: 8px; }
+  .shortcut-copy strong { font-size: 17px; }
+  .shortcut-description { font-size: 11px; }
+  .section-tools { gap: 8px; }
+  .section-hint { gap: 3px; font-size: 10px; }
 }
 
 @media (max-width: 580px) {
@@ -327,19 +322,18 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   .remote-hint, .topbar-divider { display: none; }
   .welcome-card { padding: 25px 22px 20px; }
   .welcome-bottom { right: 22px; left: 22px; }
-  .welcome-note { max-width: 75%; font-size: 9px; }
+  .welcome-note { max-width: 85%; font-size: 11px; }
   .section-hint { display: none; }
+  .section-tools { margin-left: auto; }
+  .app-manager-item { grid-template-columns: minmax(0, 1fr) 73px; }
+  .app-manager-actions { grid-column: 1 / -1; justify-content: flex-end; }
   .shortcut-grid { grid-template-columns: 1fr; }
-  .shortcut-card { min-height: 82px; padding: 12px 15px; }
-  .shortcut-icon { flex-basis: 42px; width: 42px; height: 42px; }
-  .bottom-grid { margin-top: 12px; }
-  .watchlist-card { padding: 18px 16px 14px; }
-  .watchlist-heading { align-items: flex-start; }
-  .watchlist-empty { flex-wrap: wrap; }
-  .empty-add { margin-left: 29px; }
+  .shortcut-card { min-height: 92px; padding: 12px 15px; }
+  .shortcut-icon { flex-basis: 44px; width: 44px; height: 44px; }
   .footer-bar { align-items: flex-start; gap: 8px; }
-  .footer-right { font-size: 7px; }
+  .footer-right { font-size: 8px; }
   .entry-modal { padding: 27px 22px 22px; }
+  .app-manager-dialog { max-height: calc(100vh - 24px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

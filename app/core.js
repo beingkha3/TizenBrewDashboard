@@ -54,20 +54,6 @@ export function weatherSymbolFromDescription(description) {
   return '✳';
 }
 
-export function normalizeWatchlist(value) {
-  if (!Array.isArray(value)) return [];
-
-  return value
-    .filter((item) => item && typeof item.title === 'string')
-    .map((item, index) => ({
-      id: String(item.id ?? `saved-${index}`),
-      title: item.title.trim().slice(0, 80),
-      done: Boolean(item.done),
-    }))
-    .filter((item) => item.title.length > 0)
-    .slice(0, 20);
-}
-
 export function temperatureUnit(locale = '') {
   return /^en-US(?:-|$)/i.test(locale) ? 'fahrenheit' : 'celsius';
 }
