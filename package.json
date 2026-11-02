@@ -1,0 +1,28 @@
+{
+  "name": "tizenbrew-living-room-dashboard",
+  "version": "0.1.0",
+  "description": "A remote-first dashboard module for TizenBrew.",
+  "homepage": "https://github.com/beingkha3/TizenBrewDashboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beingkha3/TizenBrewDashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/beingkha3/TizenBrewDashboard/issues"
+  },
+  "packageType": "app",
+  "appName": "Living Room Dashboard",
+  "appPath": "app/index.html",
+  "keys": [],
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "test": "node --test"
+  },
+  "files": [
+    "README.md",
+    "package.json",
+    "app/**"
+  ],
+  "license": "MIT"
+}
