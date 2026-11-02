@@ -181,6 +181,10 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 
 .weather-topline { position: relative; z-index: 1; justify-content: space-between; }
 .weather-topline h2 { margin: 8px 0 0; font: 600 21px/1.1 'Manrope', sans-serif; letter-spacing: -.035em; }
+.weather-controls { display: flex; align-items: center; gap: 8px; }
+.unit-switch { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 10px; background: rgba(8, 15, 24, .44); }
+.unit-option { min-width: 33px; height: 27px; padding: 0 7px; border: 0; border-radius: 7px; background: transparent; color: #8190a7; font-size: 10px; font-weight: 700; cursor: pointer; }
+.unit-option.is-selected { background: rgba(142, 231, 203, .14); color: var(--mint); }
 .icon-button, .modal-close { display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: rgba(255, 255, 255, .035); color: #bdc9da; cursor: pointer; }
 .icon-button { width: 34px; height: 34px; font-size: 21px; }
 .icon-button:focus-visible { transform: rotate(30deg); }

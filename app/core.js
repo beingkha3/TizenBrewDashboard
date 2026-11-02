@@ -43,6 +43,17 @@ export function weatherSymbol(code) {
   return '✳';
 }
 
+export function weatherSymbolFromDescription(description) {
+  const value = String(description || '').toLowerCase();
+  if (/thunder|lightning/.test(value)) return weatherSymbol(95);
+  if (/snow|sleet|hail|ice/.test(value)) return weatherSymbol(71);
+  if (/rain|drizzle|shower/.test(value)) return weatherSymbol(61);
+  if (/fog|mist/.test(value)) return weatherSymbol(45);
+  if (/cloud|overcast/.test(value)) return weatherSymbol(3);
+  if (/clear|sun/.test(value)) return weatherSymbol(0);
+  return '✳';
+}
+
 export function normalizeWatchlist(value) {
   if (!Array.isArray(value)) return [];
 

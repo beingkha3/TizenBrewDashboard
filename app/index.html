@@ -47,9 +47,15 @@
               <p class="eyebrow"><span class="eyebrow-line"></span> OUTSIDE RIGHT NOW</p>
               <h2 id="weather-title">Weather</h2>
             </div>
-            <button id="refresh-weather" class="icon-button" type="button" aria-label="Refresh weather" title="Refresh weather">
-              <span aria-hidden="true">↻</span>
-            </button>
+            <div class="weather-controls">
+              <div id="temperature-units" class="unit-switch" role="group" aria-label="Temperature units">
+                <button class="unit-option" type="button" data-unit="fahrenheit" aria-pressed="false">°F</button>
+                <button class="unit-option" type="button" data-unit="celsius" aria-pressed="false">°C</button>
+              </div>
+              <button id="refresh-weather" class="icon-button" type="button" aria-label="Refresh weather" title="Refresh weather">
+                <span aria-hidden="true">↻</span>
+              </button>
+            </div>
           </div>
           <div id="weather-display" class="weather-display is-empty">
             <div id="weather-symbol" class="weather-symbol" aria-hidden="true">✳</div>
@@ -140,7 +146,7 @@
 
       <footer class="footer-bar">
         <span><span class="footer-mark">B</span> A little more living room, a little less menu.</span>
-        <span class="footer-right">TIZENBREW MODULE <i></i> 0.1.0</span>
+        <span class="footer-right">TIZENBREW MODULE <i></i> 0.1.1</span>
       </footer>
     </main>
 

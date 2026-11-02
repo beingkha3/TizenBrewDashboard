@@ -4,10 +4,12 @@ import {
   temperatureUnit,
   weatherDescription,
   weatherSymbol,
+  weatherSymbolFromDescription,
 } from './core.js';
 
 const STORAGE_KEYS = {
   city: 'living-room-dashboard-city-v1',
+  temperatureUnit: 'living-room-dashboard-temperature-unit-v1',
   watchlist: 'living-room-dashboard-watchlist-v1',
 };
 const TIZENBREW_APP_ID = 'xvvl3S1bvH.TizenBrewStandalone';
@@ -38,6 +40,7 @@ const elements = {
   shortcutWeather: document.getElementById('shortcut-weather'),
   shortcutWatchlistCount: document.getElementById('shortcut-watchlist-count'),
   toast: document.getElementById('toast'),
+  temperatureUnits: document.getElementById('temperature-units'),
   weatherCity: document.getElementById('weather-city'),
   weatherCondition: document.getElementById('weather-condition'),
   weatherDisplay: document.getElementById('weather-display'),
@@ -57,6 +60,7 @@ let toastTimeout = null;
 let weatherRequest = 0;
 let watchlist = readWatchlist();
 let city = readCity();
+let selectedTemperatureUnit = readTemperatureUnit();
 
 function safeRead(key) {
   try {
@@ -76,6 +80,11 @@ function safeWrite(key, value) {
 
 function readCity() {
   return (safeRead(STORAGE_KEYS.city) || '').trim().slice(0, 80);
+}
+
+function readTemperatureUnit() {
+  const saved = safeRead(STORAGE_KEYS.temperatureUnit);
+  return saved === 'fahrenheit' || saved === 'celsius' ? saved : temperatureUnit(currentLocale());
 }
 
 function readWatchlist() {
@@ -207,6 +216,24 @@ function currentLocale() {
   return (navigator.languages && navigator.languages[0]) || navigator.language || '';
 }
 
+function renderTemperatureUnit() {
+  elements.temperatureUnits.querySelectorAll('[data-unit]').forEach((button) => {
+    const selected = button.dataset.unit === selectedTemperatureUnit;
+    button.classList.toggle('is-selected', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+}
+
+function renderWeather({ temperature, condition, symbol, displayName, high, low, unit }) {
+  elements.weatherDisplay.classList.remove('is-empty', 'is-loading');
+  elements.weatherSymbol.textContent = symbol;
+  elements.weatherTemperature.textContent = `${Math.round(temperature)}${temperatureSuffix(unit)}`;
+  elements.weatherCondition.textContent = condition;
+  elements.weatherCity.textContent = displayName.toUpperCase();
+  const suffix = temperatureSuffix(unit);
+  elements.weatherStatus.textContent = `H ${Math.round(high)}${suffix}  ·  L ${Math.round(low)}${suffix}`;
+}
+
 async function loadWeather() {
   if (!city) {
     setWeatherEmpty('Add your city for local weather');
@@ -215,9 +242,10 @@ async function loadWeather() {
   }
 
   const requestId = ++weatherRequest;
-  const unit = temperatureUnit(currentLocale());
+  const unit = selectedTemperatureUnit;
   setWeatherLoading('Checking the forecast…');
   elements.weatherCity.textContent = city.toUpperCase();
+  let place;
 
   try {
     const geocodeUrl = new URL('https://geocoding-api.open-meteo.com/v1/search');
@@ -230,7 +258,7 @@ async function loadWeather() {
     const locationResponse = await fetch(geocodeUrl);
     if (!locationResponse.ok) throw new Error('Location lookup failed');
     const locationData = await locationResponse.json();
-    const place = locationData.results && locationData.results[0];
+    place = locationData.results && locationData.results[0];
     if (!place) throw new Error('City not found. Check the spelling and try again.');
 
     const weatherUrl = new URL('https://api.open-meteo.com/v1/forecast');
@@ -250,17 +278,60 @@ async function loadWeather() {
 
     const current = weatherData.current;
     const displayName = [place.name, place.admin1].filter(Boolean).join(', ');
-    elements.weatherDisplay.classList.remove('is-empty', 'is-loading');
-    elements.weatherSymbol.textContent = weatherSymbol(current.weather_code);
-    elements.weatherTemperature.textContent = `${Math.round(current.temperature_2m)}${temperatureSuffix(unit)}`;
-    elements.weatherCondition.textContent = weatherDescription(current.weather_code);
-    elements.weatherCity.textContent = displayName.toUpperCase();
-    elements.weatherStatus.textContent = `H ${Math.round(weatherData.daily.temperature_2m_max[0])}°  ·  L ${Math.round(weatherData.daily.temperature_2m_min[0])}°`;
+    renderWeather({
+      temperature: current.temperature_2m,
+      condition: weatherDescription(current.weather_code),
+      symbol: weatherSymbol(current.weather_code),
+      displayName,
+      high: weatherData.daily.temperature_2m_max[0],
+      low: weatherData.daily.temperature_2m_min[0],
+      unit,
+    });
   } catch (error) {
     if (requestId !== weatherRequest) return;
-    const message = error instanceof Error ? error.message : 'Forecast unavailable';
+
+    if (place) {
+      try {
+        const backupUrl = new URL(`https://wttr.in/${place.latitude},${place.longitude}`);
+        backupUrl.searchParams.set('format', 'j1');
+        const backupResponse = await fetch(backupUrl);
+        if (!backupResponse.ok) throw new Error('Backup forecast unavailable');
+        const backupData = await backupResponse.json();
+        const current = backupData.current_condition && backupData.current_condition[0];
+        const today = backupData.weather && backupData.weather[0];
+        if (!current || !today) throw new Error('Backup forecast response was incomplete');
+
+        const temperatureKey = unit === 'fahrenheit' ? 'temp_F' : 'temp_C';
+        const highKey = unit === 'fahrenheit' ? 'maxtempF' : 'maxtempC';
+        const lowKey = unit === 'fahrenheit' ? 'mintempF' : 'mintempC';
+        const temperature = Number(current[temperatureKey]);
+        const high = Number(today[highKey]);
+        const low = Number(today[lowKey]);
+        const condition = String(current.weatherDesc && current.weatherDesc[0] && current.weatherDesc[0].value || 'Weather update').trim();
+        if (![temperature, high, low].every(Number.isFinite)) throw new Error('Backup forecast values were invalid');
+        if (requestId !== weatherRequest) return;
+
+        const areaName = backupData.nearest_area && backupData.nearest_area[0] && backupData.nearest_area[0].areaName && backupData.nearest_area[0].areaName[0] && backupData.nearest_area[0].areaName[0].value;
+        renderWeather({
+          temperature,
+          condition,
+          symbol: weatherSymbolFromDescription(condition),
+          displayName: areaName || [place.name, place.admin1].filter(Boolean).join(', '),
+          high,
+          low,
+          unit,
+        });
+        return;
+      } catch {
+        // Keep the primary error for the on-screen message if both providers fail.
+      }
+    }
+
+    const message = place ? 'Forecast unavailable' : error instanceof Error ? error.message : 'Forecast unavailable';
     setWeatherEmpty(message, city);
-    elements.weatherStatus.textContent = 'Check your connection or update the city.';
+    elements.weatherStatus.textContent = place
+      ? 'Weather providers are temporarily unavailable. Tap refresh to retry.'
+      : 'Check your connection or update the city.';
   }
 }
 
@@ -306,6 +377,16 @@ function handleWatchlistAction(event) {
 
   saveWatchlist();
   renderWatchlist();
+}
+
+function handleTemperatureUnitChange(event) {
+  const button = event.target.closest('button[data-unit]');
+  if (!button || button.dataset.unit === selectedTemperatureUnit) return;
+
+  selectedTemperatureUnit = button.dataset.unit;
+  safeWrite(STORAGE_KEYS.temperatureUnit, selectedTemperatureUnit);
+  renderTemperatureUnit();
+  loadWeather();
 }
 
 function launchTizenTube() {
@@ -407,6 +488,7 @@ elements.emptyAddWatchlist.addEventListener('click', () => openModal('watchlist'
 elements.cityButton.addEventListener('click', () => openModal('city'));
 elements.shortcutWeather.addEventListener('click', () => openModal('city'));
 elements.refreshWeather.addEventListener('click', loadWeather);
+elements.temperatureUnits.addEventListener('click', handleTemperatureUnitChange);
 elements.launchTizenTube.addEventListener('click', launchTizenTube);
 elements.jumpWatchlist.addEventListener('click', () => {
   elements.watchlistPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -424,5 +506,6 @@ document.addEventListener('keydown', handleRemoteKeys);
 updateClock();
 window.setInterval(updateClock, 1000);
 renderWatchlist();
+renderTemperatureUnit();
 loadWeather();
 window.requestAnimationFrame(() => elements.launchTizenTube.focus());
