@@ -25,7 +25,32 @@ export const DEFAULT_APPS = Object.freeze([
 ]);
 
 const APP_ID_PATTERN = /^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)+$/;
-const APP_ICONS = new Set(['youtube', 'nuvio', 'jellyfin', 'custom']);
+const APP_ICON_MATCHERS = [
+  { icon: 'youtube', pattern: /youtube|tizentube/ },
+  { icon: 'nuvio', pattern: /nuvio/ },
+  { icon: 'jellyfin', pattern: /jellyfin/ },
+  { icon: 'netflix', pattern: /netflix/ },
+  { icon: 'prime-video', pattern: /prime[\s._-]*video|amazon[\s._-]*prime/ },
+  { icon: 'disney-plus', pattern: /disney[\s._-]*(?:plus|\+)?/ },
+  { icon: 'plex', pattern: /plex/ },
+  { icon: 'hbo-max', pattern: /hbo[\s._-]*max/ },
+  { icon: 'hulu', pattern: /hulu/ },
+  { icon: 'spotify', pattern: /spotify/ },
+  { icon: 'twitch', pattern: /twitch/ },
+  { icon: 'apple-tv', pattern: /apple[\s._-]*tv/ },
+  { icon: 'crunchyroll', pattern: /crunchyroll/ },
+];
+const APP_ICONS = new Set([...APP_ICON_MATCHERS.map(({ icon }) => icon), 'custom']);
+
+export function resolveAppIcon(entry = {}) {
+  const appData = entry && typeof entry === 'object' ? entry : {};
+  const name = typeof appData.name === 'string' ? appData.name : '';
+  const appId = typeof appData.appId === 'string' ? appData.appId : '';
+  const identity = `${name} ${appId}`.toLowerCase();
+  const match = APP_ICON_MATCHERS.find(({ pattern }) => pattern.test(identity));
+  if (match) return match.icon;
+  return APP_ICONS.has(appData.icon) ? appData.icon : 'custom';
+}
 
 export function isValidAppId(value) {
   return typeof value === 'string'
@@ -62,7 +87,7 @@ export function normalizeAppList(value) {
       name,
       category: category || 'APP',
       description: description || 'Open this app',
-      icon: APP_ICONS.has(entry.icon) ? entry.icon : 'custom',
+      icon: resolveAppIcon(entry),
     });
   });
 
@@ -117,7 +142,7 @@ export function updateAppEntry(input = {}, existingApps = [], appId) {
     app: {
       ...currentApp,
       ...result.app,
-      icon: currentApp.icon,
+      icon: result.app.icon === 'custom' ? currentApp.icon : result.app.icon,
     },
   };
 }

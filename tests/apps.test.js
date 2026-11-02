@@ -6,6 +6,7 @@ import {
   MAX_APPS,
   normalizeAppList,
   reorderAppList,
+  resolveAppIcon,
   updateAppEntry,
 } from '../app/apps.js';
 
@@ -15,6 +16,30 @@ test('default app shortcuts are configured separately from the dashboard markup'
     'NuvioTV001.NuvioTV',
     'AprZAARz4r.Jellyfin',
   ]);
+});
+
+test('app icons are detected from known names or IDs and unknown apps get a custom fallback', () => {
+  const examples = [
+    ['Video Home', 'com.example.TizenTubeStandalone', 'youtube'],
+    ['NuvioTV', 'com.example.player', 'nuvio'],
+    ['Media Client', 'org.jellyfin.client', 'jellyfin'],
+    ['Netflix', 'com.example.stream', 'netflix'],
+    ['Prime Video', 'com.example.stream', 'prime-video'],
+    ['Disney+', 'com.example.stream', 'disney-plus'],
+    ['Plex', 'com.example.stream', 'plex'],
+    ['Max', 'com.example.hbo-max', 'hbo-max'],
+    ['Hulu', 'com.example.stream', 'hulu'],
+    ['Spotify', 'com.example.music', 'spotify'],
+    ['Twitch', 'com.example.stream', 'twitch'],
+    ['Apple TV', 'com.example.stream', 'apple-tv'],
+    ['Crunchyroll', 'com.example.stream', 'crunchyroll'],
+    ['Family Media', 'com.example.family', 'custom'],
+  ];
+
+  examples.forEach(([name, appId, expectedIcon]) => {
+    assert.equal(resolveAppIcon({ name, appId, icon: 'custom' }), expectedIcon, name);
+  });
+  assert.equal(resolveAppIcon(null), 'custom');
 });
 
 test('app lists discard invalid and duplicate entries and enforce the app limit', () => {

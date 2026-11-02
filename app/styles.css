@@ -234,10 +234,25 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .shortcut-card:hover, .shortcut-card:focus-visible { transform: translateY(-2px); border-color: rgba(142, 231, 203, .5); background: rgba(25, 41, 57, .98); }
 .shortcut-primary { border-color: rgba(142, 231, 203, .17); background: linear-gradient(120deg, rgba(35, 69, 70, .68), rgba(18, 31, 45, .92)); }
 .shortcut-icon { display: grid; flex: 0 0 54px; width: 54px; height: 54px; place-items: center; border: 1px solid rgba(255, 255, 255, .1); border-radius: 16px; background: rgba(255, 255, 255, .04); color: #dce6f3; font: 700 25px 'Manrope', sans-serif; }
-.youtube-icon { border-color: rgba(255, 111, 105, .2); background: rgba(245, 75, 77, .12); color: #ff817d; }
-.youtube-icon span { display: grid; width: 24px; height: 18px; place-items: center; padding-left: 2px; border-radius: 6px; background: #f45456; color: white; font-size: 11px; }
-.jellyfin-icon { border-color: rgba(170, 139, 255, .24); background: rgba(132, 91, 230, .15); color: #c9b6ff; }
-.nuvio-icon { border-color: rgba(108, 182, 255, .24); background: rgba(52, 129, 219, .15); color: #a8d3ff; }
+.shortcut-icon-art { display: block; width: 35px; height: 35px; }
+.shortcut-icon-mark { display: inline-block; font: 800 25px/1 'Manrope', sans-serif; letter-spacing: -.07em; }
+.youtube-icon { border-color: rgba(255, 111, 105, .3); background: linear-gradient(145deg, rgba(245, 75, 77, .23), rgba(67, 20, 33, .55)); color: #ff817d; }
+.youtube-mark { display: grid; width: 27px; height: 20px; place-items: center; padding-left: 2px; border-radius: 7px; background: #f45456; color: white; font-size: 12px; }
+.jellyfin-icon { border-color: rgba(170, 139, 255, .34); background: linear-gradient(145deg, rgba(132, 91, 230, .28), rgba(54, 36, 102, .65)); color: #cfbfff; }
+.nuvio-icon { border-color: rgba(108, 182, 255, .34); background: linear-gradient(145deg, rgba(52, 129, 219, .28), rgba(21, 60, 114, .65)); color: #b8e4ff; }
+.netflix-icon { border-color: rgba(255, 68, 82, .35); background: linear-gradient(145deg, #54171f, #26141e); color: #ff3344; }
+.prime-video-icon { border-color: rgba(91, 190, 255, .35); background: linear-gradient(145deg, #174c78, #16263f); color: #7ad4ff; }
+.disney-plus-icon { border-color: rgba(126, 177, 255, .35); background: linear-gradient(145deg, #263f80, #121b42); color: #d0e2ff; }
+.plex-icon { border-color: rgba(255, 185, 82, .35); background: linear-gradient(145deg, #754715, #3c281c); color: #ffb547; }
+.hbo-max-icon { border-color: rgba(192, 135, 255, .35); background: linear-gradient(145deg, #54278a, #241641); color: #e4c7ff; }
+.hulu-icon { border-color: rgba(89, 234, 148, .35); background: linear-gradient(145deg, #176a48, #143426); color: #63f29b; }
+.hulu-icon .shortcut-icon-mark { font-size: 20px; letter-spacing: -.09em; }
+.spotify-icon { border-color: rgba(30, 215, 96, .4); background: linear-gradient(145deg, #17613d, #123529); color: #1ed760; }
+.twitch-icon { border-color: rgba(177, 132, 255, .38); background: linear-gradient(145deg, #53309a, #28194f); color: #d4baff; }
+.apple-tv-icon { border-color: rgba(211, 226, 246, .25); background: linear-gradient(145deg, #343e50, #171d28); color: #f0f5ff; }
+.apple-tv-icon .shortcut-icon-mark { font-size: 17px; letter-spacing: -.05em; }
+.crunchyroll-icon { border-color: rgba(255, 173, 75, .35); background: linear-gradient(145deg, #784519, #3b281c); color: #ffb84e; }
+.custom-app-icon { border-color: hsl(var(--app-icon-hue), 72%, 70%); background: linear-gradient(145deg, hsl(var(--app-icon-hue), 62%, 34%), hsl(var(--app-icon-hue), 56%, 17%)); color: #fff; }
 .shortcut-copy { display: grid; min-width: 0; gap: 4px; }
 .shortcut-kicker { color: #9aa9bf; font-size: 10px; font-weight: 700; letter-spacing: .1em; }
 .shortcut-copy strong { overflow: hidden; font: 600 21px/1.1 'Manrope', sans-serif; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
@@ -333,6 +348,241 @@ button:focus-visible, input:focus-visible, a:focus-visible {
   .footer-bar { align-items: flex-start; gap: 8px; }
   .footer-right { font-size: 8px; }
   .entry-modal { padding: 27px 22px 22px; }
+  .app-manager-dialog { max-height: calc(100vh - 24px); }
+}
+
+/* Bright, comfortable living-room theme */
+:root {
+  color-scheme: light;
+  background: #f3f8ff;
+  color: #1b2d49;
+  --ink: #1b2d49;
+  --muted: #506681;
+  --soft: #3d5674;
+  --panel: rgba(255, 255, 255, .96);
+  --panel-strong: #fff;
+  --line: rgba(42, 68, 108, .17);
+  --mint: #087d6d;
+  --mint-deep: #066858;
+  --blue: #5261d4;
+  --gold: #ad6800;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(83, 211, 176, .2), transparent 33%),
+    radial-gradient(ellipse at 92% 8%, rgba(255, 190, 82, .23), transparent 30%),
+    linear-gradient(145deg, #edf7ff 0%, #f8fbff 48%, #fff8eb 100%);
+}
+
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 4px solid #ef8619;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 7px rgba(239, 134, 25, .2), 0 12px 30px rgba(27, 51, 88, .16);
+}
+
+.ambient-one {
+  border-color: rgba(8, 125, 109, .12);
+  box-shadow: 0 0 0 3rem rgba(8, 125, 109, .025), 0 0 0 7rem rgba(8, 125, 109, .015);
+}
+
+.ambient-two { background: rgba(82, 97, 212, .11); }
+.dashboard-shell { padding: clamp(24px, 4vh, 52px) clamp(26px, 4vw, 76px) 28px; }
+.topbar { margin-bottom: clamp(22px, 3vh, 38px); }
+.brand-mark { border-color: rgba(8, 125, 109, .38); background: linear-gradient(145deg, rgba(58, 208, 173, .25), rgba(100, 123, 228, .15)); }
+.brand-mark.dashboard-mark { display: block; flex: 0 0 46px; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 0; background: none; }
+.dashboard-mark-frame { fill: rgba(255, 255, 255, .78); stroke: #087d6d; stroke-width: 2.5; }
+.dashboard-mark-stand { fill: none; stroke: #087d6d; stroke-width: 3; stroke-linecap: round; }
+.brand-name { color: #24415f; font-size: 15px; letter-spacing: .12em; }
+.topbar-meta { color: #526780; font-size: 13px; }
+.live-indicator { color: #3f5874; }
+.live-indicator i, .note-dot, .footer-right i { background: #18a77e; box-shadow: 0 0 0 4px rgba(24, 167, 126, .14); }
+
+.hero-grid { gap: 22px; }
+.welcome-card, .weather-card {
+  border-color: rgba(48, 77, 120, .15);
+  border-radius: 28px;
+  box-shadow: 0 15px 36px rgba(43, 68, 105, .1);
+}
+.welcome-card {
+  min-height: clamp(290px, 34vh, 390px);
+  padding: 36px 40px 26px;
+  color: #1b2d49;
+  background: linear-gradient(118deg, #adf1da 0%, #b9eaff 55%, #d4d9ff 100%);
+}
+.welcome-card::before {
+  border-color: rgba(255, 255, 255, .58);
+  box-shadow: 0 0 0 37px rgba(255, 255, 255, .2), 0 0 0 78px rgba(255, 255, 255, .12);
+}
+.welcome-orbit { background: #ff9a32; box-shadow: 0 0 0 6px rgba(255, 154, 50, .18); }
+.eyebrow { color: #4a6280; font-size: 12px; }
+.eyebrow-line { width: 20px; height: 2px; background: #087d6d; }
+.welcome-card h1 { font-weight: 700; }
+.title-period { color: #e77a16; }
+.welcome-copy { margin-top: 14px; color: #34516e; font-size: 19px; }
+.time-block { gap: 18px; margin-top: 28px; }
+.clock { color: #1b2d49; font-size: 34px; }
+.time-divider { width: 2px; height: 26px; background: rgba(49, 77, 115, .25); }
+.date { color: #405873; font-size: 17px; }
+.welcome-bottom { color: #405873; font-size: 14px; }
+.note-dot { width: 7px; height: 7px; }
+
+.weather-card {
+  min-height: clamp(290px, 34vh, 390px);
+  padding: 28px 30px 22px;
+  color: #263653;
+  background: linear-gradient(145deg, #fff0b9 0%, #ffdfbd 54%, #ffd5cf 100%);
+}
+.weather-topline h2 { font-size: 24px; }
+.unit-switch { gap: 3px; padding: 4px; border-color: rgba(68, 77, 111, .16); background: rgba(255, 255, 255, .68); }
+.unit-option { min-width: 42px; height: 36px; border-radius: 8px; color: #53647d; font-size: 14px; }
+.unit-option.is-selected { background: #087d6d; color: #fff; }
+.icon-button { width: 44px; height: 44px; background: rgba(255, 255, 255, .72); color: #344c68; font-size: 25px; }
+.weather-display { min-height: 128px; gap: 18px; padding: 15px 0 8px; }
+.weather-symbol { width: 70px; color: #e78917; font-size: 60px; text-shadow: none; }
+.weather-temperature { font-size: 50px; }
+.weather-condition { margin-top: 9px; color: #435873; font-size: 16px; }
+.weather-footer { gap: 12px; padding-top: 15px; }
+.weather-city { color: #4d607a; font-size: 13px; }
+.text-button { color: #087264; font-size: 16px; }
+.weather-status { color: #4d607a; font-size: 14px; }
+.weather-glow { background: rgba(255, 160, 72, .2); }
+
+.shortcuts-section { margin-top: clamp(26px, 3vh, 42px); }
+.section-heading { margin-bottom: 18px; }
+.section-heading h2 { font-size: 34px; }
+.section-hint { color: #4e637d; font-size: 14px; }
+.section-hint kbd, .section-hint b {
+  min-width: 27px;
+  height: 27px;
+  border-color: rgba(51, 77, 115, .2);
+  background: rgba(255, 255, 255, .78);
+  color: #334a67;
+  font-size: 13px;
+}
+.section-hint b { min-width: 40px; color: #087264; }
+.manage-apps-button {
+  min-height: 50px;
+  gap: 9px;
+  padding: 0 18px;
+  border-color: rgba(8, 125, 109, .28);
+  border-radius: 13px;
+  background: #e1f7ef;
+  color: #086c5d;
+  font-size: 16px;
+}
+.manage-apps-button span { font-size: 22px; }
+.shortcut-grid { gap: 18px; }
+.shortcut-card {
+  min-height: clamp(150px, 19vh, 210px);
+  gap: 20px;
+  padding: 26px 28px;
+  border-color: rgba(44, 72, 112, .14);
+  border-radius: 21px;
+  background: linear-gradient(145deg, #fff, #f8fbff);
+  box-shadow: 0 9px 24px rgba(40, 63, 99, .08);
+}
+.shortcut-card:hover, .shortcut-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(8, 125, 109, .48);
+  background: linear-gradient(145deg, #fff, #effbf7);
+  box-shadow: 0 14px 30px rgba(40, 63, 99, .14);
+}
+.shortcut-primary {
+  border-color: rgba(8, 125, 109, .26);
+  background: linear-gradient(120deg, #e0f9ee, #e4f4ff 68%, #f1efff);
+}
+.shortcut-icon { flex-basis: 68px; width: 68px; height: 68px; border-radius: 19px; }
+.shortcut-icon-art { width: 42px; height: 42px; }
+.shortcut-icon-mark { font-size: 30px; }
+.youtube-mark { width: 32px; height: 24px; font-size: 14px; }
+.hulu-icon .shortcut-icon-mark { font-size: 23px; }
+.apple-tv-icon .shortcut-icon-mark { font-size: 20px; }
+.shortcut-kicker { color: #526984; font-size: 12px; }
+.shortcut-copy strong { color: #1c304e; font-size: 24px; }
+.shortcut-description { color: #4b617b; font-size: 15px; }
+.shortcut-number { color: rgba(54, 78, 112, .48); font-size: 13px; }
+.apps-empty { color: #455d78; font-size: 17px; }
+
+.footer-bar { color: #526780; font-size: 14px; }
+.footer-mark { width: 20px; height: 20px; border-color: rgba(8, 125, 109, .32); color: #087264; font-size: 11px; }
+.footer-right { color: #526780; font-size: 12px; }
+
+.modal-backdrop { background: rgba(35, 51, 79, .48); backdrop-filter: blur(8px); }
+.entry-modal {
+  border-color: rgba(49, 75, 113, .17);
+  background: #fff;
+  color: #1b2d49;
+  box-shadow: 0 28px 80px rgba(32, 52, 85, .28);
+}
+.entry-modal h2 { font-size: 30px; }
+.modal-description { color: #506681; font-size: 15px; }
+.entry-modal label { color: #344c69; font-size: 14px; }
+.entry-modal input {
+  min-height: 52px;
+  border-color: rgba(49, 75, 113, .2);
+  background: #f7faff;
+  color: #1b2d49;
+  font-size: 16px;
+}
+.entry-modal input::placeholder { color: #71839b; }
+.app-manager-list { max-height: 190px; gap: 9px; }
+.app-manager-item { padding: 12px 13px; border-color: rgba(49, 75, 113, .15); background: #f7faff; }
+.app-manager-copy strong { color: #1b2d49; font-size: 15px; }
+.app-manager-copy code { color: #526780; font-size: 12px; }
+.app-order-button { width: 40px; height: 40px; border-color: rgba(8, 125, 109, .22); background: #e5f7f0; color: #087264; }
+.app-order-button:disabled { border-color: rgba(49, 75, 113, .12); background: #f0f3f8; color: #8997a9; }
+.edit-app-button, .remove-app-button { min-height: 40px; padding: 0 10px; font-size: 13px; }
+.edit-app-button { background: #e5f7f0; color: #087264; }
+.remove-app-button { border-color: rgba(187, 63, 75, .2); background: #fff0f0; color: #a43843; }
+.app-manager-empty, .field-help { color: #526780; font-size: 14px; }
+.modal-error { color: #b23843; font-size: 14px; }
+.cancel-button, .save-button { min-height: 46px; padding: 0 17px; font-size: 14px; }
+.cancel-button { color: #405873; }
+.save-button { background: #087d6d; color: #fff; }
+.modal-close { width: 38px; height: 38px; border-color: rgba(49, 75, 113, .16); background: #f4f7fb; color: #344c69; }
+.toast { border-color: rgba(8, 125, 109, .2); background: #fff; color: #1b2d49; font-size: 15px; box-shadow: 0 10px 28px rgba(32, 52, 85, .18); }
+
+@media (min-width: 1600px) {
+  .shortcut-icon { flex-basis: 72px; width: 72px; height: 72px; }
+  .shortcut-copy strong { font-size: 26px; }
+  .shortcut-description { font-size: 16px; }
+}
+
+@media (max-width: 900px) {
+  .dashboard-shell { padding: 26px 24px; }
+  .welcome-card { min-height: 270px; }
+  .weather-card { min-height: 230px; }
+  .shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .shortcut-card { min-height: 132px; gap: 14px; padding: 18px 16px; }
+  .shortcut-icon { flex-basis: 52px; width: 52px; height: 52px; border-radius: 15px; }
+  .shortcut-icon-art { width: 34px; height: 34px; }
+  .shortcut-icon-mark { font-size: 24px; }
+  .youtube-mark { width: 26px; height: 20px; font-size: 12px; }
+  .shortcut-kicker { font-size: 10px; }
+  .shortcut-copy strong { font-size: 20px; }
+  .shortcut-description { font-size: 13px; }
+  .section-tools { gap: 10px; }
+  .section-hint { gap: 4px; font-size: 12px; }
+}
+
+@media (max-width: 580px) {
+  .topbar-meta { font-size: 10px; }
+  .welcome-card { min-height: 250px; padding: 28px 23px 22px; }
+  .welcome-copy { font-size: 16px; }
+  .clock { font-size: 29px; }
+  .date { font-size: 14px; }
+  .welcome-bottom { right: 23px; left: 23px; font-size: 12px; }
+  .section-heading h2 { font-size: 29px; }
+  .manage-apps-button { min-height: 46px; padding: 0 13px; font-size: 14px; }
+  .shortcut-grid { grid-template-columns: 1fr; gap: 11px; }
+  .shortcut-card { min-height: 100px; padding: 15px 17px; }
+  .shortcut-copy strong { font-size: 20px; }
+  .shortcut-description { font-size: 14px; }
+  .footer-bar { font-size: 12px; }
+  .footer-right { font-size: 9px; }
+  .entry-modal { padding: 29px 22px 23px; }
+  .entry-modal h2 { font-size: 26px; }
   .app-manager-dialog { max-height: calc(100vh - 24px); }
 }
 

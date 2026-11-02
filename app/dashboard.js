@@ -119,6 +119,119 @@ function saveAppList(nextApps) {
   return true;
 }
 
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg';
+const APP_ICON_MARKS = {
+  netflix: 'N',
+  'prime-video': '▶',
+  'disney-plus': 'D+',
+  plex: 'P',
+  'hbo-max': 'M',
+  hulu: 'hulu',
+  twitch: 'T',
+  'apple-tv': 'tv',
+  crunchyroll: 'C',
+};
+
+function appendSvgShape(svg, tagName, attributes) {
+  const shape = document.createElementNS(SVG_NAMESPACE, tagName);
+  Object.entries(attributes).forEach(([name, value]) => shape.setAttribute(name, value));
+  svg.append(shape);
+}
+
+function createBrandSvg(appIcon) {
+  const svg = document.createElementNS(SVG_NAMESPACE, 'svg');
+  svg.classList.add('shortcut-icon-art');
+  svg.setAttribute('viewBox', '0 0 48 48');
+  svg.setAttribute('focusable', 'false');
+
+  if (appIcon === 'nuvio') {
+    appendSvgShape(svg, 'path', {
+      d: 'M11 36V12l26 24V12',
+      fill: 'none',
+      stroke: 'currentColor',
+      'stroke-width': '5',
+      'stroke-linecap': 'round',
+      'stroke-linejoin': 'round',
+    });
+  } else if (appIcon === 'jellyfin') {
+    appendSvgShape(svg, 'path', {
+      d: 'M8 21C8 11.6 14.8 5 24 5s16 6.6 16 16c0 5.5-3.9 8.7-9 10l2 9-6-7-3 9-4-9-6 7 1.7-9C11 29.5 8 26.2 8 21Z',
+      fill: 'currentColor',
+    });
+    appendSvgShape(svg, 'circle', { cx: '19', cy: '20', r: '2', fill: '#17142b' });
+    appendSvgShape(svg, 'circle', { cx: '29', cy: '20', r: '2', fill: '#17142b' });
+  } else if (appIcon === 'spotify') {
+    appendSvgShape(svg, 'circle', { cx: '24', cy: '24', r: '19', fill: 'currentColor' });
+    appendSvgShape(svg, 'path', {
+      d: 'M13 19c8-2 15-1 22 3M15 25c7-2 13-1 18 2M17 31c5-1 10 0 14 2',
+      fill: 'none',
+      stroke: '#10291f',
+      'stroke-width': '3',
+      'stroke-linecap': 'round',
+    });
+  } else if (appIcon === 'twitch') {
+    appendSvgShape(svg, 'path', {
+      d: 'M10 7h30v23l-9 9h-8l-5 5v-5h-8V14l3-7Z',
+      fill: 'currentColor',
+    });
+    appendSvgShape(svg, 'path', {
+      d: 'M22 16v9m9-9v9',
+      fill: 'none',
+      stroke: '#fff',
+      'stroke-width': '3',
+      'stroke-linecap': 'round',
+    });
+  }
+
+  return svg;
+}
+
+function getCustomIconHue(appId) {
+  let hash = 0;
+  for (let index = 0; index < appId.length; index += 1) {
+    hash = (hash * 31 + appId.charCodeAt(index)) >>> 0;
+  }
+  return hash % 360;
+}
+
+function getAppMonogram(name) {
+  const words = name.trim().split(/[\s._-]+/).filter(Boolean);
+  const letters = words.length > 1
+    ? words.slice(0, 2).map((word) => Array.from(word)[0]).join('')
+    : Array.from(words[0] || 'APP').slice(0, 2).join('');
+  return letters.toUpperCase();
+}
+
+function createShortcutIcon(app) {
+  const icon = document.createElement('span');
+  icon.className = 'shortcut-icon';
+  icon.classList.add(`${app.icon}-icon`);
+  icon.setAttribute('aria-hidden', 'true');
+
+  if (app.icon === 'custom') {
+    icon.classList.add('custom-app-icon');
+    icon.style.setProperty('--app-icon-hue', getCustomIconHue(app.appId));
+    const mark = document.createElement('span');
+    mark.className = 'shortcut-icon-mark';
+    mark.textContent = getAppMonogram(app.name);
+    icon.append(mark);
+  } else if (app.icon === 'youtube') {
+    const play = document.createElement('span');
+    play.className = 'youtube-mark';
+    play.textContent = '▶';
+    icon.append(play);
+  } else if (['nuvio', 'jellyfin', 'spotify', 'twitch'].includes(app.icon)) {
+    icon.append(createBrandSvg(app.icon));
+  } else {
+    const mark = document.createElement('span');
+    mark.className = 'shortcut-icon-mark';
+    mark.textContent = APP_ICON_MARKS[app.icon] || getAppMonogram(app.name);
+    icon.append(mark);
+  }
+
+  return icon;
+}
+
 function createAppButton(app, index) {
   const button = document.createElement('button');
   button.className = `shortcut-card ${index === 0 ? 'shortcut-primary' : 'shortcut-secondary'}`;
@@ -128,21 +241,7 @@ function createAppButton(app, index) {
   button.setAttribute('aria-label', `Open ${app.name}`);
   button.addEventListener('click', () => launchApp(app.appId, app.name));
 
-  const icon = document.createElement('span');
-  icon.className = 'shortcut-icon';
-  icon.setAttribute('aria-hidden', 'true');
-  if (app.icon === 'youtube') {
-    icon.classList.add('youtube-icon');
-    const play = document.createElement('span');
-    play.textContent = '▶';
-    icon.append(play);
-  } else {
-    if (app.icon === 'nuvio') icon.classList.add('nuvio-icon');
-    if (app.icon === 'jellyfin') icon.classList.add('jellyfin-icon');
-    icon.textContent = app.icon === 'nuvio'
-      ? 'N'
-      : app.icon === 'jellyfin' ? 'J' : app.name.charAt(0).toUpperCase();
-  }
+  const icon = createShortcutIcon(app);
 
   const copy = document.createElement('span');
   copy.className = 'shortcut-copy';
@@ -625,10 +724,20 @@ function handleRemoteKeys(event) {
     ArrowRight: 'right',
     ArrowUp: 'up',
   };
-  const direction = directions[event.key];
+  const direction = directions[event.key] || {
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down',
+  }[event.keyCode];
   const isTextField = event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+  const isSingleLineInput = event.target instanceof HTMLInputElement;
+  const shouldMoveFocus = direction && (!isTextField || (
+    isSingleLineInput && (direction === 'up' || direction === 'down')
+  ));
 
-  if (direction && !isTextField) {
+  // Vertical arrows move between controls; left/right remain available to edit text.
+  if (shouldMoveFocus) {
     event.preventDefault();
     moveRemoteFocus(direction);
     return;

@@ -14,6 +14,8 @@ Open `http://127.0.0.1:5177/` in a browser. Weather uses the free Open-Meteo geo
 
 Choose **Add app** on the dashboard to add a shortcut. Enter the app name and its Tizen app ID; category and short description are optional. You can edit app details, use the up/down arrows to change shortcut order, or remove apps from the same screen. Your app list is saved on that TV or browser. The first-run defaults are kept separately in `app/apps.js`; managing shortcuts does not require editing code.
 
+Known streaming apps are recognized from their name or Tizen app ID and get a matching icon. Other apps get a stable color and initials based on their name and ID. The root `icon.png` is the labeled dashboard launcher icon used when packaging the WGT.
+
 ## TizenBrew module
 
 The root `package.json` contains the TizenBrew module fields. The public GitHub repository is `beingkha3/TizenBrewDashboard`; use that `user/repo` value as the GitHub source in TizenBrew. The latest version and signed WGT are available from the [GitHub releases](https://github.com/beingkha3/TizenBrewDashboard/releases).

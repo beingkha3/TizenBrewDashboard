@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#0b101c">
+    <meta name="theme-color" content="#f3f8ff">
     <title>Living Room Dashboard</title>
     <link rel="stylesheet" href="./styles.css">
   </head>
@@ -13,9 +13,16 @@
 
     <main class="dashboard-shell">
       <header class="topbar">
-        <a class="brand" href="#top" aria-label="Living Room Dashboard home">
-          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span class="brand-name">LIVING<span>ROOM</span></span>
+        <a class="brand" href="#top" aria-label="Dashboard home">
+          <svg class="brand-mark dashboard-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+            <rect class="dashboard-mark-frame" x="3" y="4" width="42" height="34" rx="9"></rect>
+            <rect x="9" y="10" width="12" height="9" rx="2" fill="#31ad87"></rect>
+            <rect x="27" y="10" width="12" height="9" rx="2" fill="#6276df"></rect>
+            <rect x="9" y="23" width="12" height="9" rx="2" fill="#f0af44"></rect>
+            <rect x="27" y="23" width="12" height="9" rx="2" fill="#ed7771"></rect>
+            <path class="dashboard-mark-stand" d="M24 38v4m-7 0h14"></path>
+          </svg>
+          <span class="brand-name">DASHBOARD</span>
         </a>
         <div class="topbar-meta">
           <span class="live-indicator"><i></i> HOME</span>
