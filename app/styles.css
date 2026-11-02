@@ -215,7 +215,7 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .manage-apps-button { display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 14px; border: 1px solid rgba(142, 231, 203, .25); border-radius: 10px; background: rgba(142, 231, 203, .08); color: var(--mint); font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 .manage-apps-button span { font-size: 18px; }
 
-.shortcut-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.shortcut-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .shortcut-grid[hidden] { display: none; }
 .shortcut-card {
   position: relative;
@@ -424,6 +424,9 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .clock { color: #1b2d49; font-size: 34px; }
 .time-divider { width: 2px; height: 26px; background: rgba(49, 77, 115, .25); }
 .date { color: #405873; font-size: 17px; }
+.time-format-switch { display: flex; flex: 0 0 auto; gap: 3px; margin-left: auto; padding: 4px; border: 1px solid rgba(49, 77, 115, .18); border-radius: 999px; background: rgba(255, 255, 255, .62); box-shadow: inset 0 1px 2px rgba(49, 77, 115, .08); }
+.time-format-option { display: grid; min-width: 54px; min-height: 42px; place-items: center; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: #405873; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background .16s ease, color .16s ease, box-shadow .16s ease; }
+.time-format-option.is-selected { background: #087d6d; color: #fff; box-shadow: 0 2px 5px rgba(19, 83, 71, .2); }
 .welcome-bottom { color: #405873; font-size: 14px; }
 .note-dot { width: 7px; height: 7px; }
 
@@ -543,42 +546,117 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 .modal-close { width: 38px; height: 38px; border-color: rgba(49, 75, 113, .16); background: #f4f7fb; color: #344c69; }
 .toast { border-color: rgba(8, 125, 109, .2); background: #fff; color: #1b2d49; font-size: 15px; box-shadow: 0 10px 28px rgba(32, 52, 85, .18); }
 
-@media (min-width: 1600px) {
-  .shortcut-icon { flex-basis: 72px; width: 72px; height: 72px; }
-  .shortcut-copy strong { font-size: 26px; }
-  .shortcut-description { font-size: 16px; }
+@media (min-width: 1200px) {
+  .dashboard-shell { padding: clamp(36px, 3.5vh, 72px) clamp(48px, 4vw, 120px) 40px; }
+  .topbar { margin-bottom: clamp(32px, 3vh, 56px); }
+  .brand-mark.dashboard-mark { flex-basis: clamp(58px, 3vw, 76px); width: clamp(58px, 3vw, 76px); height: clamp(58px, 3vw, 76px); }
+  .brand-name { font-size: clamp(20px, 1.1vw, 30px); letter-spacing: .14em; }
+  .topbar-meta { font-size: clamp(16px, .9vw, 22px); }
+  .hero-grid { gap: 26px; }
+  .welcome-card, .weather-card { min-height: clamp(360px, 33vh, 520px); }
+  .welcome-card { padding: clamp(44px, 3vw, 76px) clamp(52px, 3.4vw, 130px) clamp(32px, 2.2vh, 48px); }
+  .eyebrow { font-size: clamp(15px, .9vw, 22px); }
+  .eyebrow-line { width: clamp(25px, 1.3vw, 38px); }
+  .welcome-card h1 { font-size: clamp(68px, 5.4vw, 128px); }
+  .welcome-copy { margin-top: 18px; font-size: clamp(23px, 1.55vw, 36px); }
+  .time-block { gap: clamp(22px, 1.4vw, 32px); margin-top: clamp(32px, 2vh, 48px); }
+  .clock { font-size: clamp(46px, 2.8vw, 68px); }
+  .date { font-size: clamp(20px, 1.3vw, 30px); }
+  .time-format-switch { gap: clamp(2px, .2vw, 6px); padding: clamp(4px, .3vw, 8px); }
+  .time-format-option { min-width: clamp(54px, 2.7vw, 92px); min-height: clamp(48px, 2.6vh, 68px); padding: 0 clamp(12px, .8vw, 24px); font-size: clamp(16px, .8vw, 22px); }
+  .welcome-bottom { right: clamp(36px, 2.2vw, 60px); bottom: clamp(25px, 2.2vh, 42px); left: clamp(52px, 3.4vw, 130px); font-size: clamp(16px, 1vw, 24px); }
+  .weather-card { padding: clamp(34px, 2.3vw, 60px); }
+  .weather-topline h2 { font-size: clamp(29px, 1.75vw, 42px); }
+  .unit-option { min-width: clamp(48px, 3vw, 80px); height: clamp(42px, 3.4vh, 74px); font-size: clamp(16px, 1vw, 24px); }
+  .icon-button { width: clamp(52px, 3.8vh, 82px); height: clamp(52px, 3.8vh, 82px); font-size: clamp(28px, 1.8vw, 40px); }
+  .weather-display { min-height: clamp(145px, 14vh, 260px); gap: clamp(22px, 1.4vw, 36px); padding: 18px 0 10px; }
+  .weather-symbol { width: clamp(82px, 5vw, 152px); font-size: clamp(70px, 4.4vw, 132px); }
+  .weather-temperature { font-size: clamp(60px, 3.4vw, 98px); }
+  .weather-condition { font-size: clamp(19px, 1.2vw, 30px); }
+  .weather-city { font-size: clamp(15px, 1vw, 22px); }
+  .text-button { font-size: clamp(18px, 1.3vw, 27px); }
+  .weather-status { font-size: clamp(16px, 1vw, 23px); }
+  .shortcuts-section { margin-top: clamp(32px, 3.5vh, 60px); }
+  .section-heading { margin-bottom: 26px; }
+  .section-heading h2 { font-size: clamp(42px, 2.7vw, 72px); }
+  .section-hint { font-size: clamp(16px, 1vw, 24px); }
+  .section-hint kbd, .section-hint b { min-width: clamp(32px, 2vw, 48px); height: clamp(32px, 2vw, 48px); font-size: clamp(15px, .9vw, 22px); }
+  .section-hint b { min-width: clamp(48px, 2.8vw, 64px); }
+  .manage-apps-button { min-height: clamp(60px, 5vh, 96px); padding: 0 clamp(22px, 2vw, 48px); border-radius: 18px; font-size: clamp(19px, 1.3vw, 30px); }
+  .manage-apps-button span { font-size: clamp(27px, 1.8vw, 40px); }
+  .shortcut-grid { gap: clamp(22px, 1.8vw, 42px); }
+  .shortcut-card { min-height: clamp(220px, 22vh, 390px); gap: clamp(24px, 2vw, 48px); padding: clamp(30px, 2.4vw, 56px); border-radius: 26px; }
+  .shortcut-icon { flex-basis: clamp(88px, 6.2vw, 152px); width: clamp(88px, 6.2vw, 152px); height: clamp(88px, 6.2vw, 152px); border-radius: clamp(23px, 1.7vw, 32px); }
+  .shortcut-icon-art { width: clamp(54px, 3.8vw, 96px); height: clamp(54px, 3.8vw, 96px); }
+  .shortcut-icon-mark { font-size: clamp(39px, 3vw, 70px); }
+  .youtube-mark { width: clamp(39px, 3vw, 70px); height: clamp(30px, 2.3vw, 54px); font-size: clamp(18px, 1.5vw, 32px); }
+  .hulu-icon .shortcut-icon-mark { font-size: clamp(28px, 2.2vw, 48px); }
+  .apple-tv-icon .shortcut-icon-mark { font-size: clamp(24px, 1.8vw, 40px); }
+  .shortcut-kicker { font-size: clamp(14px, 1.05vw, 24px); }
+  .shortcut-copy strong { font-size: clamp(32px, 2.3vw, 58px); }
+  .shortcut-description { font-size: clamp(18px, 1.35vw, 32px); }
+  .shortcut-number { right: clamp(23px, 1.7vw, 38px); bottom: clamp(19px, 1.4vw, 32px); font-size: clamp(16px, 1.1vw, 24px); }
+  .apps-empty { font-size: clamp(20px, 1.4vw, 32px); }
+  .footer-bar { font-size: clamp(16px, 1vw, 22px); }
+  .footer-mark { width: clamp(23px, 1.5vw, 34px); height: clamp(23px, 1.5vw, 34px); font-size: clamp(13px, .8vw, 18px); }
+  .footer-right { font-size: clamp(14px, .9vw, 20px); }
+  .entry-modal { width: min(100%, 760px); padding: clamp(40px, 3vw, 68px); }
+  .app-manager-dialog { width: min(100%, 1100px); max-height: calc(100vh - 80px); }
+  .entry-modal h2 { font-size: clamp(36px, 2.4vw, 54px); }
+  .modal-description { font-size: clamp(18px, 1.2vw, 28px); }
+  .entry-modal label { font-size: clamp(17px, 1.05vw, 24px); }
+  .entry-modal input { min-height: clamp(60px, 4.4vh, 90px); font-size: clamp(18px, 1.2vw, 28px); }
+  .app-manager-list { max-height: clamp(250px, 24vh, 480px); gap: 14px; }
+  .app-manager-item { padding: clamp(14px, 1.2vw, 26px); }
+  .app-manager-copy strong { font-size: clamp(17px, 1.15vw, 26px); }
+  .app-manager-copy code { font-size: clamp(14px, .9vw, 20px); }
+  .app-order-button { width: clamp(46px, 3vw, 68px); height: clamp(46px, 3vw, 68px); }
+  .edit-app-button, .remove-app-button { min-height: clamp(46px, 3.2vw, 72px); padding: 0 clamp(12px, .9vw, 22px); font-size: clamp(15px, 1vw, 23px); }
+  .app-manager-empty, .field-help { font-size: clamp(16px, 1vw, 23px); }
+  .cancel-button, .save-button { min-height: clamp(52px, 3.6vw, 80px); padding: 0 clamp(20px, 1.4vw, 34px); font-size: clamp(16px, 1vw, 23px); }
+  .modal-close { width: clamp(44px, 3vw, 68px); height: clamp(44px, 3vw, 68px); }
+  .toast { font-size: clamp(17px, 1.1vw, 25px); }
 }
 
 @media (max-width: 900px) {
   .dashboard-shell { padding: 26px 24px; }
   .welcome-card { min-height: 270px; }
+  .welcome-card h1 { font-size: clamp(42px, 7vw, 58px); }
+  .welcome-copy { font-size: 18px; }
+  .clock { font-size: 32px; }
+  .date { font-size: 15px; }
+  .time-format-option { min-height: 48px; padding: 0 12px; font-size: 15px; }
   .weather-card { min-height: 230px; }
-  .shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-  .shortcut-card { min-height: 132px; gap: 14px; padding: 18px 16px; }
-  .shortcut-icon { flex-basis: 52px; width: 52px; height: 52px; border-radius: 15px; }
-  .shortcut-icon-art { width: 34px; height: 34px; }
-  .shortcut-icon-mark { font-size: 24px; }
-  .youtube-mark { width: 26px; height: 20px; font-size: 12px; }
-  .shortcut-kicker { font-size: 10px; }
-  .shortcut-copy strong { font-size: 20px; }
-  .shortcut-description { font-size: 13px; }
+  .shortcut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .shortcut-card { min-height: 150px; gap: 16px; padding: 20px 18px; }
+  .shortcut-icon { flex-basis: 60px; width: 60px; height: 60px; border-radius: 17px; }
+  .shortcut-icon-art { width: 40px; height: 40px; }
+  .shortcut-icon-mark { font-size: 28px; }
+  .youtube-mark { width: 30px; height: 22px; font-size: 13px; }
+  .shortcut-kicker { font-size: 11px; }
+  .shortcut-copy strong { font-size: 23px; }
+  .shortcut-description { font-size: 15px; }
+  .manage-apps-button { min-height: 52px; padding: 0 17px; font-size: 17px; }
   .section-tools { gap: 10px; }
-  .section-hint { gap: 4px; font-size: 12px; }
+  .section-hint { gap: 4px; font-size: 13px; }
 }
 
 @media (max-width: 580px) {
   .topbar-meta { font-size: 10px; }
-  .welcome-card { min-height: 250px; padding: 28px 23px 22px; }
+  .welcome-card { min-height: 280px; padding: 28px 23px 22px; }
   .welcome-copy { font-size: 16px; }
   .clock { font-size: 29px; }
   .date { font-size: 14px; }
+  .time-block { flex-wrap: wrap; }
+  .time-format-switch { flex: 1 0 100%; margin: 2px 0 0; }
+  .time-format-option { flex: 1 1 0; }
   .welcome-bottom { right: 23px; left: 23px; font-size: 12px; }
   .section-heading h2 { font-size: 29px; }
-  .manage-apps-button { min-height: 46px; padding: 0 13px; font-size: 14px; }
+  .manage-apps-button { min-height: 48px; padding: 0 13px; font-size: 15px; }
   .shortcut-grid { grid-template-columns: 1fr; gap: 11px; }
-  .shortcut-card { min-height: 100px; padding: 15px 17px; }
-  .shortcut-copy strong { font-size: 20px; }
-  .shortcut-description { font-size: 14px; }
+  .shortcut-card { min-height: 112px; padding: 17px 18px; }
+  .shortcut-copy strong { font-size: 22px; }
+  .shortcut-description { font-size: 15px; }
   .footer-bar { font-size: 12px; }
   .footer-right { font-size: 9px; }
   .entry-modal { padding: 29px 22px 23px; }

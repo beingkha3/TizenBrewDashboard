@@ -1,4 +1,6 @@
 import {
+  formatClockTime,
+  preferredTimeFormat,
   temperatureSuffix,
   temperatureUnit,
   weatherDescription,
@@ -18,6 +20,7 @@ const STORAGE_KEYS = {
   apps: 'living-room-dashboard-apps-v1',
   city: 'living-room-dashboard-city-v1',
   temperatureUnit: 'living-room-dashboard-temperature-unit-v1',
+  timeFormat: 'living-room-dashboard-time-format-v1',
 };
 
 const elements = {
@@ -54,6 +57,7 @@ const elements = {
   refreshWeather: document.getElementById('refresh-weather'),
   toast: document.getElementById('toast'),
   temperatureUnits: document.getElementById('temperature-units'),
+  timeFormat: document.getElementById('time-format'),
   weatherCity: document.getElementById('weather-city'),
   weatherCondition: document.getElementById('weather-condition'),
   weatherDisplay: document.getElementById('weather-display'),
@@ -69,6 +73,7 @@ let editingAppId = null;
 let apps = readAppList();
 let city = readCity();
 let selectedTemperatureUnit = readTemperatureUnit();
+let selectedTimeFormat = readTimeFormat();
 
 function safeRead(key) {
   try {
@@ -95,6 +100,11 @@ function readCity() {
 function readTemperatureUnit() {
   const saved = safeRead(STORAGE_KEYS.temperatureUnit);
   return saved === 'fahrenheit' || saved === 'celsius' ? saved : temperatureUnit(currentLocale());
+}
+
+function readTimeFormat() {
+  const saved = safeRead(STORAGE_KEYS.timeFormat);
+  return saved === '12' || saved === '24' ? saved : preferredTimeFormat(currentLocale());
 }
 
 function readAppList() {
@@ -349,10 +359,8 @@ function updateClock() {
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
 
   elements.greeting.textContent = greeting;
-  elements.clock.textContent = new Intl.DateTimeFormat(undefined, {
-    hour: 'numeric',
-    minute: '2-digit',
-  }).format(now);
+  elements.clock.textContent = formatClockTime(now, selectedTimeFormat, currentLocale());
+  elements.clock.setAttribute('aria-label', `Current time in ${selectedTimeFormat}-hour format`);
   elements.date.textContent = new Intl.DateTimeFormat(undefined, {
     weekday: 'long',
     month: 'long',
@@ -429,6 +437,14 @@ function currentLocale() {
 function renderTemperatureUnit() {
   elements.temperatureUnits.querySelectorAll('[data-unit]').forEach((button) => {
     const selected = button.dataset.unit === selectedTemperatureUnit;
+    button.classList.toggle('is-selected', selected);
+    button.setAttribute('aria-pressed', String(selected));
+  });
+}
+
+function renderTimeFormat() {
+  elements.timeFormat.querySelectorAll('[data-time-format]').forEach((button) => {
+    const selected = button.dataset.timeFormat === selectedTimeFormat;
     button.classList.toggle('is-selected', selected);
     button.setAttribute('aria-pressed', String(selected));
   });
@@ -662,6 +678,16 @@ function handleTemperatureUnitChange(event) {
   loadWeather();
 }
 
+function handleTimeFormatChange(event) {
+  const button = event.target.closest('button[data-time-format]');
+  if (!button || button.dataset.timeFormat === selectedTimeFormat) return;
+
+  selectedTimeFormat = button.dataset.timeFormat;
+  safeWrite(STORAGE_KEYS.timeFormat, selectedTimeFormat);
+  renderTimeFormat();
+  updateClock();
+}
+
 function launchApp(appId, appName) {
   const tizenApi = window.tizen;
   if (!tizenApi || !tizenApi.application || typeof tizenApi.application.launch !== 'function') {
@@ -758,6 +784,7 @@ elements.cityButton.addEventListener('click', openCityModal);
 elements.addAppButton.addEventListener('click', openAppManager);
 elements.refreshWeather.addEventListener('click', loadWeather);
 elements.temperatureUnits.addEventListener('click', handleTemperatureUnitChange);
+elements.timeFormat.addEventListener('click', handleTimeFormatChange);
 elements.entryForm.addEventListener('submit', submitEntry);
 elements.appForm.addEventListener('submit', submitAppForm);
 elements.appManagerList.addEventListener('click', removeApp);
@@ -779,6 +806,7 @@ document.addEventListener('keydown', handleRemoteKeys);
 updateClock();
 window.setInterval(updateClock, 1000);
 renderTemperatureUnit();
+renderTimeFormat();
 renderApps();
 loadWeather();
 window.requestAnimationFrame(() => elements.appGrid.querySelector('button')?.focus());

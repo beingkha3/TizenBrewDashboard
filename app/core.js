@@ -61,3 +61,19 @@ export function temperatureUnit(locale = '') {
 export function temperatureSuffix(unit) {
   return unit === 'fahrenheit' ? '°F' : '°C';
 }
+
+export function preferredTimeFormat(locale = '') {
+  const { hourCycle } = new Intl.DateTimeFormat(locale || undefined, {
+    hour: 'numeric',
+  }).resolvedOptions();
+  return hourCycle === 'h11' || hourCycle === 'h12' ? '12' : '24';
+}
+
+export function formatClockTime(date, format = '12', locale = '') {
+  const is24Hour = format === '24';
+  return new Intl.DateTimeFormat(locale || undefined, {
+    hour: is24Hour ? '2-digit' : 'numeric',
+    minute: '2-digit',
+    hourCycle: is24Hour ? 'h23' : 'h12',
+  }).format(date);
+}
