@@ -769,7 +769,11 @@ function handleRemoteKeys(event) {
     return;
   }
 
-  if (event.key === 'Escape' || event.key === 'Backspace' || event.keyCode === 10009) {
+  const isRemoteBack = event.keyCode === 10009;
+  const isBackspaceInTextField = event.key === 'Backspace' && isTextField && !isRemoteBack;
+  if (isBackspaceInTextField) return;
+
+  if (event.key === 'Escape' || (!isTextField && event.key === 'Backspace') || isRemoteBack) {
     if (!elements.modal.hidden || !elements.appManagerModal.hidden) {
       event.preventDefault();
       closeModal();
